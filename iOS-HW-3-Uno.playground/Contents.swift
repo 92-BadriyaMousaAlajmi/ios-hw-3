@@ -14,7 +14,6 @@ import UIKit
 
 //: ![Uno Deck](deck.jpg)
 
-
 /*:
  ### المطلوب:
 #### الجزء الأول:
@@ -83,23 +82,71 @@ var wild_Draw = UIImage(named: "Wild_Draw.png")
 
 //: # الحل ...
 
-
-
 /// قم بإنشاء الستركت هنا
+struct Card {
+   var Color: String?
+   var number: Int?
+   var actionCards: String?
+    
+    var cards : [Card] = []
+    
+    func imageName() -> String{
+        if number != nil {
+            print("\(Color!)_\(number!)")
+            return "\(Color!)_\(number!)"
+        }else if  actionCards! == "Wild" || actionCards! == "Wild_Draw" {
+            print("\(actionCards!)")
+           return "\(actionCards!)"
+            
+        }else {
+            print("\(Color ?? "green")_\(actionCards!)")
+            return "\(Color ?? "green")_\(actionCards!)"
+        }
+     }
+ }
+    var cards : [Card] = []
+    
+    let Colors = ["Green","Red","Yellow","Blue"]
 
-// struct ...
+    var actionCards = ["Draw","Skip","Reverse"]
+    var spectialActionCards = ["Wild_Draw","Wild"]
 
+    for color in Colors{
+        cards.append(Card(Color: color, number: 0))
+         for turn in 1...2{
+             for action in actionCards
+             {
+                
+                cards.append(Card(Color: color, actionCards: action))
+             
+             }
+            if turn == 1 {
+                for a in spectialActionCards
+                         {
+                                
+                                cards.append(Card(Color: color, actionCards: a))
+                
+                         }
+            }
+            
+           for i in 1...9{
+            cards.append(Card(Color: color, number: i))
+           }
+   }
+ 
+
+}
 
 
 
 
 // لا تقم بإزالة الملاحظات إلا عند وصولك للمطلوب الثالث
 
-//
-//let randomCard = cards.randomElement()!
-//let randomCardImage = UIImage(named: randomCard.imageName())
-//
-//
-//let cardImages = cards.map{UIImage(named: $0.imageName())}
-//randomCardImage
-//cardImages
+
+let randomCard = cards.randomElement()!
+let randomCardImage = UIImage(named: randomCard.imageName())
+
+
+let cardImages = cards.map{UIImage(named: $0.imageName())}
+randomCardImage
+cardImages
